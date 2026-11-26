@@ -96,6 +96,13 @@ Found in the browser: activating "Remove" deleted the focused button, dropping f
 - [x] Tests (focus, then click, as a keyboard user does): removing a middle person focuses the next row's Remove; removing the last row focuses the previous Remove; removing everyone focuses the Name field. Watched all three fail (focus on nothing).
 - [x] `removePerson` remembers the row index and, in `afterNextRender`, focuses `removeButtons()[min(index, length - 1)]`, else `nameField`. `addPerson` now takes the name field from `viewChild` instead of a template argument.
 
+### Task 5 (found while verifying TDD-3): name field didn't always clear after adding
+
+The name field was mirrored in a `nameInput` signal bound back with `[value]`. If no render happened between typing and submitting (fast submit, a slow device, autofill, or a throttled background tab), the binding went from `''` to `''`, so Angular never wrote to the field and the typed name stayed there.
+
+- [x] Test: set the field value, dispatch `input` and `submit` with no render in between → the person is added and the field is empty. Watched it fail (`'Alex'`).
+- [x] `addPerson` reads and clears `nameField().nativeElement.value` directly; the `nameInput` signal and its template bindings are removed.
+
 ### Verification
 
 - `npx ng test --watch=false`, `npx ng build`, `npx prettier --check` on changed files.

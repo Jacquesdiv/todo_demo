@@ -47,8 +47,6 @@
           id="person-name"
           type="text"
           autocomplete="off"
-          [value]="nameInput()"
-          (input)="nameInput.set(nameField.value)"
           [attr.aria-invalid]="nameError()"
           [attr.aria-describedby]="nameError() ? 'person-name-error' : null"
         />

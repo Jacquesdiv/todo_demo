@@ -35,7 +35,6 @@ export class SplitBill {
   private nextId = 0;
 
   protected readonly billInput = signal('');
-  protected readonly nameInput = signal('');
   protected readonly nameError = signal(false);
   protected readonly people = signal<Person[]>([]);
 
@@ -62,15 +61,17 @@ export class SplitBill {
     return null;
   });
 
+  /** Reads the name straight from the field and clears it there, so it can't lag behind a re-render. */
   protected addPerson(event: Event): void {
     event.preventDefault();
-    const name = this.nameInput().trim();
+    const field = this.nameField().nativeElement;
+    const name = field.value.trim();
     if (name) {
       this.people.update((people) => [...people, { id: this.nextId++, name }]);
-      this.nameInput.set('');
+      field.value = '';
     }
     this.nameError.set(!name);
-    this.nameField().nativeElement.focus();
+    field.focus();
   }
 
   /** Removes someone and keeps keyboard focus nearby: the next row's button, else the previous, else the name field. */

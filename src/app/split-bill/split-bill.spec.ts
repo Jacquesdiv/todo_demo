@@ -71,6 +71,17 @@ describe('SplitBill', () => {
     expect(inputLabelled('Name').value).toBe('');
   });
 
+  it('clears the name field even when submitted before the page re-renders', async () => {
+    const nameField = inputLabelled('Name');
+    nameField.value = 'Alex';
+    nameField.dispatchEvent(new Event('input'));
+    nameField.form!.dispatchEvent(new Event('submit', { cancelable: true }));
+    await fixture.whenStable();
+
+    expect(names()).toEqual(['Alex']);
+    expect(nameField.value).toBe('');
+  });
+
   it('adds a person when the name form is submitted (Enter)', async () => {
     await type(inputLabelled('Name'), 'Priya');
     inputLabelled('Name').form!.dispatchEvent(new Event('submit', { cancelable: true }));
