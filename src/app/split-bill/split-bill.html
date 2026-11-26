@@ -1,0 +1,84 @@
+<main class="split">
+  <header>
+    <h1>Split the bill</h1>
+    <p class="lede">Add everyone who's sharing and the bill total to see what each person pays.</p>
+  </header>
+
+  <div class="total">
+    <label for="bill-total">Bill total</label>
+    <input
+      #billField
+      id="bill-total"
+      class="total-input"
+      type="text"
+      inputmode="decimal"
+      autocomplete="off"
+      placeholder="0.00"
+      [value]="billInput()"
+      (input)="billInput.set(billField.value)"
+      [attr.aria-invalid]="billError()"
+      [attr.aria-describedby]="billError() ? 'bill-total-error' : null"
+    />
+    @if (billError()) {
+      <p id="bill-total-error" class="error" role="alert">
+        Enter a bill total greater than 0 using numbers only, for example 84.50.
+      </p>
+    }
+  </div>
+
+  @if (share() !== null) {
+    <div class="bar" aria-hidden="true">
+      @for (person of people(); track person.id) {
+        <span class="segment" [style.--person-colour]="colour(person)"></span>
+      }
+    </div>
+  } @else if (prompt(); as message) {
+    <p class="bar bar-empty">{{ message }}</p>
+  }
+
+  <section class="people" aria-labelledby="people-heading">
+    <h2 id="people-heading">Who's sharing</h2>
+
+    <form class="add-person" (submit)="addPerson($event)">
+      <label for="person-name">Name</label>
+      <div class="add-row">
+        <input
+          #nameField
+          id="person-name"
+          type="text"
+          autocomplete="off"
+          [attr.aria-invalid]="nameError()"
+          [attr.aria-describedby]="nameError() ? 'person-name-error' : null"
+        />
+        <button type="submit" class="add">Add person</button>
+      </div>
+      @if (nameError()) {
+        <p id="person-name-error" class="error" role="alert">Enter a name to add this person.</p>
+      }
+    </form>
+
+    @if (people().length) {
+      @let amount = share();
+      <ul class="person-list">
+        @for (person of people(); track person.id) {
+          <li class="person" [style.--person-colour]="colour(person)">
+            <span class="swatch" aria-hidden="true"></span>
+            <span class="person-name">{{ person.name }}</span>
+            @if (amount !== null) {
+              <span class="person-amount">{{ amount | number: '1.2-2' }}</span>
+            }
+            <button
+              #removeButton
+              type="button"
+              class="remove"
+              [attr.aria-label]="'Remove ' + person.name"
+              (click)="removePerson(person.id)"
+            >
+              Remove
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</main>
