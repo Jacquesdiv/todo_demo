@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --paper: #f3f5f8;
+  --sheet: #ffffff;
+  --ink: #1c2633;
+  --ink-soft: #546072;
+  --line: #d2d8e1;
+  --focus: #2f54eb;
+  --error: #b42318;
+
+  /* One colour per person, cycled by person. */
+  --person-0: #3b5bdb;
+  --person-1: #0ca678;
+  --person-2: #f08c00;
+  --person-3: #d6336c;
+  --person-4: #7048e8;
+  --person-5: #1098ad;
+
+  color-scheme: light;
+  font-family: ui-rounded, 'SF Pro Rounded', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}

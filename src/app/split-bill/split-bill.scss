@@ -1,0 +1,166 @@
+:host {
+  display: block;
+}
+
+.split {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 3rem 1rem 4rem;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(2.25rem, 9vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.lede {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  min-width: 0;
+  padding: 0.625rem 0.75rem;
+  border: 2px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--sheet);
+  color: inherit;
+  font: inherit;
+
+  &:focus-visible {
+    border-color: var(--focus);
+    outline-offset: 1px;
+  }
+
+  &[aria-invalid='true'] {
+    border-color: var(--error);
+  }
+}
+
+.error {
+  margin: 0.375rem 0 0;
+  color: var(--error);
+  font-size: 0.9375rem;
+}
+
+.total {
+  margin-top: 2.5rem;
+}
+
+.total-input {
+  padding: 0.25rem 0.75rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.bar {
+  display: flex;
+  gap: 4px;
+  min-height: 3.5rem;
+  margin: 1.5rem 0 0;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.segment {
+  flex: 1 1 0;
+  background: var(--person-colour);
+}
+
+.bar-empty {
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border: 2px dashed var(--line);
+  color: var(--ink-soft);
+}
+
+.people {
+  margin-top: 2.5rem;
+}
+
+.add-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  border-radius: 0.75rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add {
+  flex: none;
+  padding: 0 1.125rem;
+  border: 0;
+  background: var(--ink);
+  color: var(--sheet);
+}
+
+.person-list {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.person {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--line);
+
+  &:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+.swatch {
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 50%;
+  background: var(--person-colour);
+}
+
+.person-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.person-amount {
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.remove {
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  background: none;
+  color: var(--ink-soft);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+
+  &:hover {
+    color: var(--ink);
+  }
+}
